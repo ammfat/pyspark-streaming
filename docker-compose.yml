@@ -7,6 +7,7 @@ services:
       - 8888:8888
       - 4040:4040
     environment:
+      TZ: Asia/Jakarta
       JUPYTER_PORT: 8888
       SPARK_UI_PORT: 4040
       GRANT_SUDO: yes
@@ -42,6 +43,7 @@ services:
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
       - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
+  
   kafka-ui:
     image: provectuslabs/kafka-ui:v0.7.2
     container_name: kafka-ui
@@ -51,38 +53,6 @@ services:
       TZ: Asia/Jakarta
       KAFKA_CLUSTERS_0_NAME: local
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:19092
-
-
-  # kafka:
-  #   image: confluentinc/cp-kafka:7.4.0
-  #   container_name: kafka
-  #   depends_on:
-  #     - zookeeper
-  #   ports:
-  #     - 9092:9092
-  #   volumes:
-  #     - ./dockervol:/data:rw
-  #     - ./dockervol/kafka:/var/lib/kafka
-  #   environment:
-  #     TZ: Asia/Jakarta
-  #     KAFKA_BROKER_ID: 1
-  #     KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-  #     KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:19092,PLAINTEXT_HOST://127.0.0.1:9092
-  #     KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-  #     KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-  #     KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-  #     KAFKA_AUTO_CREATE_TOPICS_ENABLE: true
-
-  # kafka-ui:
-  #   image: provectuslabs/kafka-ui:v0.7.2
-  #   container_name: kafka-ui
-  #   ports:
-  #     - 8080:8080
-  #   environment:
-  #     TZ: Asia/Jakarta
-  #     KAFKA_CLUSTERS_0_NAME: local
-  #     KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:19092
-
 
 volumes:
   dockervol:
